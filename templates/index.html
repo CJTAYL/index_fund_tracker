@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Fidelity Investment Fund Tracker</title>
+    <style>
+      .header-container {
+          display: flex;
+          align-items: center;
+          gap: 15px;
+          margin-bottom: 10px;
+      }
+      .header-container img {
+          height: 60px;
+          border-radius: 8px;
+      }
+    </style>
+    <script>
+      function toggleSelectAll(source) {
+        let checkboxes = document.getElementsByName('tickers');
+        for (let i = 0; i < checkboxes.length; i++) {
+          checkboxes[i].checked = source.checked;
+        }
+      }
+    </script>
+</head>
+<body>
+
+    <!-- Title + Image in Flexbox -->
+    <div class="header-container">
+      <img src="{{ url_for('static', filename='logo.png') }}" alt="FinTech Banner">
+      <h1 style="margin: 0;">Fidelity Index Fund Tracker</h1>
+    </div>
+    <hr style="border: 1px solid #ccc; margin-top: 10px; margin-bottom: 20px;">
+
+    <p>
+      The goal of this web app is to provide a tool for Fidelity investors choosing
+      between four popular funds offered by the institution.
+    </p>
+    <p>
+      Users can select one or more of the included funds to view their performance during a
+      specified time range.
+    </p>
+
+    <form method="POST" action="/chart">
+      <label>
+        <input type="checkbox" onclick="toggleSelectAll(this)"> <strong>Select All</strong>
+      </label>
+      <br><br>
+
+      {% for ticker in tickers %}
+        <label>
+          <input type="checkbox" name="tickers" value="{{ ticker }}">
+          {{ ticker }}
+        </label><br>
+      {% endfor %}
+
+      <br>
+      <label for="period">Select Time Range:</label>
+      <select name="period" id="period">
+          <option value="1mo">1 Month</option>
+          <option value="3mo">3 Months</option>
+          <option value="6mo">6 Months</option>
+          <option value="1y">1 Year</option>
+          <option value="5y">5 Years</option>
+          <option value="max">Max</option>
+      </select>
+
+      <br><br>
+      <button type="submit">Generate Chart</button>
+    </form>
+    <br>
+    <hr style="border: 1px solid #ccc; margin-top: 10px; margin-bottom: 20px;">
+</body>
+<footer style="text-align: left; font-size: 14px; color: gray;">
+   <div>&copy; 2025 Christopher Taylor</div>
+  <div>
+    <a href="https://github.com/your-username" target="_blank">GitHub Profile</a>
+  </div>
+</footer>
+</html>

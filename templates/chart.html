@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Visualization of the Data</title>
+</head>
+<body>
+    <br>
+    <a href="/"><button>Back to Home</button></a>
+    <h2>Latest Closing Prices</h2>
+    <ul>
+        {% for ticker, price in latest_prices.items() %}
+        <li><strong>{{ ticker }}:</strong> ${{ price }}</li>
+        {% endfor %}
+    </ul>
+  <h2>Performance Over Time</h2>
+  {{ plot_pct | safe }}
+  <br>
+  {{ plot_norm | safe }}
+
+</body>
+</html>
